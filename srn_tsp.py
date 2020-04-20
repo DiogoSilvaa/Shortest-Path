@@ -3,14 +3,6 @@ import turtle
 import math
 import copy
 
-
-#Starting Data
-x_range = 50 #minimum range
-y_range = -50 #maximum range
-locations = 10 #Number of different locations
-
-
-
 def student_details():
     
     # add variables to store student ID and username to be returned
@@ -23,7 +15,6 @@ def generate_map(x_range, y_range, locations):
     generated_map=[]
     for x in range(locations):
         generated_map.append((random.randint(-(x_range),x_range),random.randint(-(y_range),y_range)))
-    #print(generated_map) to test take out comment
     return generated_map
 
 def print_map(speed, color, thickness, selected_map):
@@ -47,13 +38,18 @@ def calculate_distance(starting_x, starting_y, destination_x, destination_y):
     return distance
 
 def calculate_path(selected_map):
-
+    distance = 0
+    sizeofmap = len(selected_map)
+    i = 0
+    while i+1 < sizeofmap:
+        distance = distance + calculate_distance(selected_map[i][0],selected_map[i][1],selected_map[i+1][0],selected_map[i+1][1])
+        i=i+1
+    distance = distance + calculate_distance(selected_map[i][0],selected_map[i][1],selected_map[0][0],selected_map[0][1])
+    return distance
     # you will need to setup a variable to store the total path distance
     # you will need to use a loop in order to calculate the distance of the locations individually
     # it would be wise to use make use of the calculate_distance function as you can reuse this
     # remember your need to calculate the path of all locations returning to the original location
-
-    return distance
 
 #################################################################################################
 
