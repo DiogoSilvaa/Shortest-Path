@@ -19,11 +19,10 @@ def generate_map(x_range, y_range, locations):
 
 def print_map(speed, color, thickness, selected_map):
     print("printing map")
-    sizeofmap = len(selected_map)
     i=1
     turtle.penup()
     turtlegoto(selected_map[0])
-    while i+1 < sizeofmap:
+    while i+1 < len(selected_map):
         turtle.pendown()
         turtle.goto(selected_map[i])
         turtle.goto(selected_map[i+1])
@@ -39,9 +38,8 @@ def calculate_distance(starting_x, starting_y, destination_x, destination_y):
 
 def calculate_path(selected_map):
     distance = 0
-    sizeofmap = len(selected_map)
     i = 0
-    while i+1 < sizeofmap:
+    while i+1 < len(selected_map):
         distance = distance + calculate_distance(selected_map[i][0],selected_map[i][1],selected_map[i+1][0],selected_map[i+1][1])
         i=i+1
     distance = distance + calculate_distance(selected_map[i][0],selected_map[i][1],selected_map[0][0],selected_map[0][1])
@@ -54,25 +52,26 @@ def calculate_path(selected_map):
 #################################################################################################
 
 def nearest_neighbour_algorithm(selected_map):
-
     temp_map = copy.deepcopy(selected_map)
-
+    optermised_map = []
+    optermised_map.append(temp_map.pop())
     # you need to create an empty list for your optimised map 
     for x in range(len(temp_map)):
-
+        nearest_value = 100000
+        nearest_index = 0
         # you need to add some variables to store establish the closest location
-        
         for i in range(len(temp_map)):
-            temp = i # NOTE: you can remove this line once function is implemented
-            # you need to calculate the distance between the current path and the next potential location
-            # it would be wise to use make use of the calculate_distance function
-
+            current_value = calculate_distance(selected_map[x][0],selected_map[x][1],selected_map[i][0],selected_map[i][1]) 
+            if nearest_value > current_value:
+                nearest_value = current_value
+                nearest_index = i
+        optermised_map.append(temp_map[nearest_index])
+        del temp_map[nearest_index]
+    return optermised_map
                 # you will need to write an if statement to establish if the current distance is lower than the stored
                 # best distance, and if so set the best distance to the current location
 
         # the final step is to add the closest location to the optermised_map and remove from the temp_map
-        
-    return optermised_map
 
 #################################################################################################
 
