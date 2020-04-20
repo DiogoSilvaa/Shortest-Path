@@ -18,25 +18,26 @@ def student_details():
     username = dd18aaz
     return student_id, student_username
 
-def random_gen(x_range,y_range):
-    #Generate random coordinates
-    randomcoordinate = (random.randint(-(x_range),x_range),random.randint(-(y_range),y_range))
-    return randomcoordinate
-
-def loop_pop(locations):
-    pop_list=[]
-    for x in range(locations):
-        pop_list.append(random_gen(x_range,y_range))
-        return pop_list
-
 def generate_map(x_range, y_range, locations):
     # add code to create a list then use a for loop to create a random population for this list
-    generated_map = loop_pop(locations)
+    generated_map=[]
+    for x in range(locations):
+        generated_map.append((random.randint(-(x_range),x_range),random.randint(-(y_range),y_range)))
+    #print(generated_map) to test take out comment
     return generated_map
 
 def print_map(speed, color, thickness, selected_map):
     print("printing map")
-
+    sizeofmap = len(selected_map)
+    i=1
+    turtle.penup()
+    turtlegoto(selected_map[0])
+    while i+1 < sizeofmap:
+        turtle.pendown()
+        turtle.goto(selected_map[i])
+        turtle.goto(selected_map[i+1])
+        i+=1
+        turtle.penup()
     # add code to use the turtle to draw the path between all destinations
     # the turtle should make use of the parameters provided: speed. color, etc...
     # you will need to use a loop in order to draw the path to all locations
