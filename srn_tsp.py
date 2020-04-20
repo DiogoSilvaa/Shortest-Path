@@ -20,19 +20,18 @@ def student_details():
 
 def random_gen(x_range,y_range):
     #Generate random coordinates
-    randomcoordinate = (random.randint(x_range,y_range),random.randint(x_range,y_range))
+    randomcoordinate = (random.randint(-(x_range),x_range),random.randint(-(y_range),y_range))
     return randomcoordinate
 
 def loop_pop(locations):
-    #Creates a list and randomly populates it
-     pop_list=[]
-     for x in range(locations):
-         pop_list.append(random_gen(y_range,x_range))
-     return pop_list
+    pop_list=[]
+    for x in range(locations):
+        pop_list.append(random_gen(x_range,y_range))
+        return pop_list
 
 def generate_map(x_range, y_range, locations):
     # add code to create a list then use a for loop to create a random population for this list
-            generated_map = (loop_pop(locations))
+    generated_map = loop_pop(locations)
     return generated_map
 
 def print_map(speed, color, thickness, selected_map):
