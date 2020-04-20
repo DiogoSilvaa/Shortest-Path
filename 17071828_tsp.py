@@ -86,20 +86,20 @@ def genetic_algorithm(selected_map, population, iterations, mutation_rate, elite
     return best_solution
 
 def create_population(population, selected_map):
-
+    gene_pool=[]
+    for x in range(population):
+        gene_pool.append(copy.deepcopy(selected_map))
+        random.shuffle(gene_pool[x])
     # you need to create an empty list called gene_pool for the population
 
     # use a for loop and the provided inputs to create the population 
 
     # you will also need to randomise the individuals within the population
-        
+
     return gene_pool
 
 def fitness_function(gene_pool, best_solution):
 
-    # you need to find a way to rank the fitness of your population. one way you may consider doing this is with a ranked list
-
-    # you will need to have correctly implemented the calculate_path function in order to rank the fitness of the population
 
     # you may consider using a loop to achieve this
 

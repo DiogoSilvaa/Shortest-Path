@@ -753,6 +753,6 @@ open_map()
 ###########################################################################################################################
 
 
-import SRN_TSP                                      # this is importing your file
-testing_procedure(SRN_TSP)                          # this is calling the testing procedue with your file
+import STU_17071828_TSP                                      # this is importing your file
+testing_procedure(STU_17071828_TSP)                          # this is calling the testing procedue with your file
 
