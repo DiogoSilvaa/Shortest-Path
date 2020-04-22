@@ -49,16 +49,24 @@ def nearest_neighbour_algorithm(selected_map):
     temp_map = copy.deepcopy(selected_map)
     optermised_map = []
     optermised_map.append(temp_map.pop())
+    #print("Optimized map:",optermised_map)
+    #print("Temporary map:",temp_map)
+    x=0
+    i=0
     for x in range(len(temp_map)):
+        #print("Map:",optermised_map)
         nearest_value = 100000
         nearest_index = 0
         for i in range(len(temp_map)):
-            current_value = calculate_distance(selected_map[x][0],selected_map[x][1],selected_map[i][0],selected_map[i][1]) 
-            if nearest_value > current_value:
+            current_value = calculate_distance(optermised_map[x][0],optermised_map[x][1],temp_map[i][0],temp_map[i][1]) 
+            if current_value < nearest_value:
                 nearest_value = current_value
                 nearest_index = i
+        #print("Nearest pair:",temp_map[nearest_index])
         optermised_map.append(temp_map[nearest_index])
+        #print("Nearest index:",nearest_index)
         del temp_map[nearest_index]
+    #print ("Final optimized map:",optermised_map)
     return optermised_map
 
 #################################################################################################
@@ -76,18 +84,21 @@ def create_population(population, selected_map):
     return gene_pool
 
 def fitness_function(gene_pool, best_solution):
-    best_solution = copy.deepcopy(gene_pool[0])
-    best_solution_score = 0
+    best_solution = []
+    best_solution_score = 100000000
     ranking = []
+    #print("Gene pool:", gene_pool)
     for x in range(len(gene_pool)):
         score = 0
         score += calculate_path(gene_pool[x])
+        #print("Path distance ", x,": ",score)
         ranking.append(score)
-        if score > best_solution_score:
-            best_solution = gene_pool[x]
+        if score < best_solution_score:
+            best_solution = (copy.deepcopy(gene_pool[x]))
             best_solution_score = score
-    sorted_gene_pool = [x for _,x in sorted(zip(ranking,gene_pool), reverse=True)]
-    print (sorted_gene_pool)
+    sorted_gene_pool = [x for _,x in sorted(zip(ranking,gene_pool), reverse=False)]
+    #print ("Best solution:",best_solution)
+    #print ("Sorted gene pool:",sorted_gene_pool)
     return sorted_gene_pool, best_solution
 
 def iterator(gene_pool, iterations, mutation_rate, elite_threshold):
@@ -97,8 +108,6 @@ def iterator(gene_pool, iterations, mutation_rate, elite_threshold):
         sorted_gene_pool, best_solution = fitness_function(gene_pool, best_solution)
         new_gene_pool = mating_function(sorted_gene_pool, best_solution, mutation_rate, elite_threshold)
         new_gene_pool,best_solution = fitness_function(sorted_gene_pool, sorted_gene_pool)
-        # if calculate_path(solution)<calculate_path(best_solution):
-        #  best_solution = solution                               Acho que este código é redundante
     return best_solution
 
 def mating_function(gene_pool, best_solution, mutation_rate, elite_threshold):
