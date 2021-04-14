@@ -1,6 +1,4 @@
 # Shortest-Path
 This python script aims to:
- Randomly generating a map of locations
- Calculating the distance between those locations
- Generating a visiting order to find the shortest path
- Visualising the path
+ Randomly generate a map of locations, calculate the distance between those locations, generate a visiting order to find the shortest path
+ and visualise the path.
